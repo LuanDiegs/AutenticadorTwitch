@@ -1,11 +1,8 @@
 var rand = function() {return Math.random().toString(36).substr(2);};
 var token = function() {return rand() + rand();};
-var host = window.location.origin;
-
-//Caso tiver pathname ele coloca na url
-if(window.location.pathname != "/"){
-    host = host + window.location.pathname;
-}
+var path = window.location.pathname;
+//Remove a barra do path
+var host = window.location.origin + path.substring(0, path.length-1);
 
 const urlVincular = "https://id.twitch.tv/oauth2/authorize?"+
     "response_type=token&"+
