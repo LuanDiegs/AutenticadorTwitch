@@ -9,3 +9,6 @@ const urlVincular = "https://id.twitch.tv/oauth2/authorize?"+
     `state=${token()}`;
 
 document.getElementById("botaoVincular").href = urlVincular;
+
+const nomeCanalSalvo = localStorage.getItem("canal");
+if(nomeCanalSalvo) document.getElementById("canal").value = nomeCanalSalvo;

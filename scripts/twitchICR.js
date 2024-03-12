@@ -7,28 +7,36 @@ function pegarStringEntre2Caracteres(inicio, fim, texto, quantidadeCaracteresPul
     );
 }
 
+function salvaNomeCanal(){
+    const inputNomeCanal = document.getElementById("canal").value;
+
+    if(inputNomeCanal){
+        localStorage.setItem("canal", inputNomeCanal.toLowerCase());
+    }
+}
+
 function logaNaTwitch(){
     const oAuth = pegarStringEntre2Caracteres("token=", "&scope", document.location.hash, 6);
+    const nomeCanal = localStorage.getItem("canal");
 
-    if(oAuth){
-        const user = "zdziin";
-        
+    if(oAuth && nomeCanal){
         const socket = new WebSocket('wss://irc-ws.chat.twitch.tv:443');
-        
+        const textoChat = document.getElementById("chat");
+        const canalCerto = nomeCanal;
+        console.log(canalCerto);
         socket.addEventListener('open', (e) => {
             socket.send(`PASS oauth:${oAuth}`);
-            socket.send(`NICK ${user}`);
-            socket.send(`JOIN #${user}`);
+            socket.send(`NICK ${canalCerto}`);
+            socket.send(`JOIN #${canalCerto}`);
 
             if(e.returnValue){
-                document.getElementById("chat").innerHTML = "Vinculado com sucesso!<br>";
+                textoChat.innerHTML = "Vinculado com sucesso!<br>";
             }
         })
 
         socket.addEventListener('message', (event) => {
-            const textoChat = document.getElementById("chat");
             const nomeUsuario = pegarStringEntre2Caracteres("@", ".tmi.twitch.tv", event.data, 1);
-            const msgChat = event.data.split(`PRIVMSG #${user} :`)[1];
+            const msgChat = event.data.split(`PRIVMSG #${canalCerto} :`)[1];
             let msgWeb = "";
 
             if(msgChat){
