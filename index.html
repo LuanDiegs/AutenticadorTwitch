@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+    <link rel="stylesheet" href="css/blocoMensagem.css">
+    <link rel="stylesheet" href="libs/simplebar.css"/>
+    <script src="libs/simplebar.js"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +10,18 @@
 </head>
 <body>
     <h1>Teste integração com a twitch</h1>
-    <p id="chat"><p>
     
     <label>Insira o nome do seu canal</label>
     <input id="canal" required/><br>
-
     <a id="botaoVincular" onclick="salvaNomeCanal()">Conectar com a twitch</a>
+
+    <h2 id="chatTitulo"></h2>
+    <div id="chat" data-simplebar>
+        <p class="mensagemCompleta">
+            <span class="usuario">luan</span>:
+            <span class="mensagemChat"> oie</span>
+        </p>
+    </div>
 </body>
     <script src="scripts/localstorage.js"></script>
     <script src="scripts/twitchICR.js"></script>
